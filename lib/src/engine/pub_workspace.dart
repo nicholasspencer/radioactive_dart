@@ -34,9 +34,13 @@ final class PubWorkspace {
         'invalid pub workspace reference ${reference.path}: malformed JSON.',
       );
     }
-    final workspaceRoot = decoded is Map<String, dynamic>
-        ? decoded['workspaceRoot']
-        : null;
+    if (decoded is! Map<String, dynamic>) {
+      throw RunAborted(
+        'invalid pub workspace reference ${reference.path}: '
+        'contents are not a JSON object.',
+      );
+    }
+    final workspaceRoot = decoded['workspaceRoot'];
     if (workspaceRoot is! String) {
       throw RunAborted(
         'invalid pub workspace reference ${reference.path}: '

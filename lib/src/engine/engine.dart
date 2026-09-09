@@ -29,11 +29,8 @@ import 'test_version_check.dart';
 import 'viability_checker.dart';
 
 /// Called after each classified mutant with progress counters.
-typedef ProgressCallback = void Function(
-  int done,
-  int total,
-  MutantResult result,
-);
+typedef ProgressCallback =
+    void Function(int done, int total, MutantResult result);
 
 /// Builds a runner rooted at a containment; [suiteConcurrency] is this
 /// worker's share of the cores (ADR 0017).
@@ -285,8 +282,9 @@ final class Engine {
     );
 
     watch.reset();
-    final unviable = await ViabilityChecker(analysis: generator.analysis)
-        .unviable(mutants.where(coverage.isCovered), sources);
+    final unviable = await ViabilityChecker(
+      analysis: generator.analysis,
+    ).unviable(mutants.where(coverage.isCovered), sources);
     logger?.info(
       'checked viability of {MutantCount} mutants in {DurationMs} ms; '
       '{UnviableCount} unviable',
@@ -469,13 +467,11 @@ final class Engine {
       packageConfigRoot: baseline.root,
       outputDir: p.join(baseline.projectRoot, coverageDirName),
     ).collect(runnerFactory(baseline.projectRoot, Platform.numberOfProcessors));
-    logger?.info(
-      'collected coverage for {FileCount} files in {DurationMs} ms',
-      {
-        'FileCount': collected.merged.hits.length,
-        'DurationMs': watch.elapsedMilliseconds,
-      },
-    );
+    logger
+        ?.info('collected coverage for {FileCount} files in {DurationMs} ms', {
+          'FileCount': collected.merged.hits.length,
+          'DurationMs': watch.elapsedMilliseconds,
+        });
     return collected;
   }
 }

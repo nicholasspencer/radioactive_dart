@@ -100,8 +100,9 @@ void main() {
   });
 
   test('resolves file: sources directly', () async {
-    final source = Uri.file(p.join(containment.path, 'test', 'calc_test.dart'))
-        .toString();
+    final source = Uri.file(
+      p.join(containment.path, 'test', 'calc_test.dart'),
+    ).toString();
 
     final provider = await collect({
       'calc_test.vm.json': [

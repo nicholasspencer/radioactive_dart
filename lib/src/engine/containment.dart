@@ -89,8 +89,9 @@ final class Containment {
   /// independent one so `dart pub get` runs once per run instead of once per
   /// worker (ADR 0017).
   Future<Containment> clone() async {
-    final target = await Directory(p.dirname(root))
-        .createTemp(containmentPrefix);
+    final target = await Directory(
+      p.dirname(root),
+    ).createTemp(containmentPrefix);
     await _copyInto(Directory(root), target.path, '', (_, _, _) => false);
     return Containment._(
       target.path,

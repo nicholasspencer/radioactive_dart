@@ -14,12 +14,14 @@ void main() {
   setUp(() async {
     workspaceRoot = await Directory.systemTemp.createTemp('rad_workspace_');
     addTearDown(() => workspaceRoot.delete(recursive: true));
-    File(p.join(workspaceRoot.path, 'pubspec.yaml'))
-        .writeAsStringSync('name: fixture_workspace\n');
+    File(
+      p.join(workspaceRoot.path, 'pubspec.yaml'),
+    ).writeAsStringSync('name: fixture_workspace\n');
     projectRoot = Directory(p.join(workspaceRoot.path, 'packages', 'member'))
       ..createSync(recursive: true);
-    File(p.join(projectRoot.path, 'pubspec.yaml'))
-        .writeAsStringSync('name: fixture_member\n');
+    File(
+      p.join(projectRoot.path, 'pubspec.yaml'),
+    ).writeAsStringSync('name: fixture_member\n');
     reference = File(
       p.join(projectRoot.path, '.dart_tool', 'pub', 'workspace_ref.json'),
     );
@@ -55,12 +57,29 @@ void main() {
     expect(workspace.root, p.normalize(p.absolute(workspaceRoot.path)));
   });
 
+  test('accepts an absolute pub-authored workspace root', () {
+    writeReference({'workspaceRoot': workspaceRoot.path});
+
+    final workspace = PubWorkspace.resolve(projectRoot.path);
+
+    expect(workspace.root, p.normalize(p.absolute(workspaceRoot.path)));
+  });
+
   test('rejects malformed workspace reference JSON', () {
     reference
       ..parent.createSync(recursive: true)
       ..writeAsStringSync('{');
 
     expect(() => PubWorkspace.resolve(projectRoot.path), abortsWith('JSON'));
+  });
+
+  test('rejects a non-object workspace reference', () {
+    writeReference(const <Object?>[]);
+
+    expect(
+      () => PubWorkspace.resolve(projectRoot.path),
+      abortsWith('not a JSON object'),
+    );
   });
 
   for (final invalid in <Object?>[
@@ -92,8 +111,9 @@ void main() {
       'rad_outside_workspace_',
     );
     addTearDown(() => outside.delete(recursive: true));
-    File(p.join(outside.path, 'pubspec.yaml'))
-        .writeAsStringSync('name: outside\n');
+    File(
+      p.join(outside.path, 'pubspec.yaml'),
+    ).writeAsStringSync('name: outside\n');
     writeReference({'workspaceRoot': outside.path});
 
     expect(

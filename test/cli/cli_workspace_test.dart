@@ -36,9 +36,13 @@ void main() {
     expect(exit, 0, reason: out.toString());
     expect(out.toString(), contains('MSI: 100.00%'));
     expect(out.toString(), contains('Covered-code MSI: 100.00%'));
-    final report = jsonDecode(
-      File(p.join(fixture.member.path, 'report.json')).readAsStringSync(),
-    ) as Map<String, dynamic>;
+    final report =
+        jsonDecode(
+              File(
+                p.join(fixture.member.path, 'report.json'),
+              ).readAsStringSync(),
+            )
+            as Map<String, dynamic>;
     expect((report['files'] as Map<String, dynamic>).keys, ['lib/calc.dart']);
     expect(memberSource.readAsBytesSync(), originalMember);
     expect(siblingSource.readAsBytesSync(), originalSibling);
@@ -91,9 +95,9 @@ void main() {
         final package = packages.cast<Map<String, dynamic>>().singleWhere(
           (entry) => entry['name'] == name,
         );
-        final resolved = Uri.file(config.path)
-            .resolve(package['rootUri'] as String)
-            .toFilePath();
+        final resolved = Uri.file(
+          config.path,
+        ).resolve(package['rootUri'] as String).toFilePath();
         expect(
           p.isWithin(
             Directory(containment.path).resolveSymbolicLinksSync(),

@@ -85,8 +85,9 @@ void main() {
 
   test('keeps a directory rule from being undone below it', () async {
     final project = await fixtureProject();
-    File(p.join(project.path, '.radignore'))
-        .writeAsStringSync('assets/big/\n!assets/big/keep.txt\n');
+    File(
+      p.join(project.path, '.radignore'),
+    ).writeAsStringSync('assets/big/\n!assets/big/keep.txt\n');
     final copy = await Containment.create(
       project.path,
       paths: await isolatedRadPaths('rad_containment_rule_'),
@@ -128,8 +129,9 @@ void main() {
     expect(p.isWithin(paths.root, clone.root), isTrue);
     expect(clone.root, isNot(containment.root));
     expect(
-      File(p.join(clone.root, '.dart_tool/package_config.json'))
-          .readAsStringSync(),
+      File(
+        p.join(clone.root, '.dart_tool/package_config.json'),
+      ).readAsStringSync(),
       '{"resolved": true}',
     );
 
@@ -210,18 +212,21 @@ void main() {
       isFalse,
     );
     expect(
-      File(p.join(copy.root, 'packages', 'sibling', 'lib', 'b.dart'))
-          .existsSync(),
+      File(
+        p.join(copy.root, 'packages', 'sibling', 'lib', 'b.dart'),
+      ).existsSync(),
       isTrue,
     );
     expect(
-      File(p.join(copy.root, 'packages', 'sibling', 'build', 'kept.txt'))
-          .existsSync(),
+      File(
+        p.join(copy.root, 'packages', 'sibling', 'build', 'kept.txt'),
+      ).existsSync(),
       isTrue,
     );
     expect(
-      File(p.join(copy.root, 'packages', 'sibling', '.git', 'config'))
-          .existsSync(),
+      File(
+        p.join(copy.root, 'packages', 'sibling', '.git', 'config'),
+      ).existsSync(),
       isFalse,
     );
 
@@ -244,8 +249,9 @@ void main() {
     final clone = await copy.clone();
     expect(clone.projectRoot, p.join(clone.root, 'packages', 'member'));
     expect(
-      File(p.join(clone.root, 'packages', 'sibling', 'lib', 'b.dart'))
-          .existsSync(),
+      File(
+        p.join(clone.root, 'packages', 'sibling', 'lib', 'b.dart'),
+      ).existsSync(),
       isTrue,
     );
     await clone.apply(mutation);
@@ -260,8 +266,9 @@ void main() {
       'int add(int a, int b) => a + b;\n',
     );
     expect(
-      File(p.join(workspace.path, 'packages', 'sibling', 'lib', 'b.dart'))
-          .readAsStringSync(),
+      File(
+        p.join(workspace.path, 'packages', 'sibling', 'lib', 'b.dart'),
+      ).readAsStringSync(),
       'const b = 1;\n',
     );
   });
