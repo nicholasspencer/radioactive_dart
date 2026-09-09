@@ -3,3 +3,6 @@
 pubspec.lock
 /mutation-report.json
 /self-run.log
+
+# the_grid live-arm worktrees + station artifacts (cut under this substation root)
+.grid/
