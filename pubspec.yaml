@@ -4,7 +4,7 @@ version: 0.2.0
 repository: https://github.com/ricardoboss/radioactive_dart
 
 environment:
-  sdk: ^3.13.0
+  sdk: ^3.12.0
 
 executables:
   rad: rad

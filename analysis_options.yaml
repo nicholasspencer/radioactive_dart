@@ -1,6 +1,9 @@
 include: package:lints/recommended.yaml
 
 analyzer:
+  exclude:
+    # A scratch project for evaluating mutation tools; the root pub get never resolves it.
+    - sandbox/**
   language:
     strict-casts: true
     strict-inference: true
