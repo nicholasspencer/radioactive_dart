@@ -20,6 +20,7 @@ import 'full_coverage_provider.dart';
 import 'mutant_generator.dart';
 import 'outcome_classifier.dart';
 import 'pub_get.dart';
+import 'pub_workspace.dart';
 import 'rad_ignore.dart';
 import 'run_aborted.dart';
 import 'run_result.dart';
@@ -111,6 +112,7 @@ final class Engine {
   Future<RunResult> run() async {
     Directory(paths.runLogs).createSync(recursive: true);
     await _provision();
+    final workspace = PubWorkspace.resolve(projectRoot);
 
     // Contain and verify before the expensive analysis stages so a red
     // suite aborts within the background reading's duration (ADR 0005).
@@ -124,8 +126,10 @@ final class Engine {
       projectRoot,
       paths: paths,
       ignore: ignore,
+      workspaceRoot: workspace.root,
+      workspaceIgnore: RadIgnore.load(workspace.root),
     );
-    await pubGet(baseline.root, label: 'the containment');
+    await pubGet(baseline.projectRoot, label: 'the containment');
     ensureTestVersion(baseline.root);
     // One pristine clone before the background reading; the workers are cloned
     // from it, so none inherits what that suite writes into the package tree
@@ -134,7 +138,7 @@ final class Engine {
     prepareWatch.stop();
 
     final background = await runnerFactory(
-      baseline.root,
+      baseline.projectRoot,
       suiteConcurrency,
     ).run();
     if (background.exitCode != 0) {
@@ -172,7 +176,8 @@ final class Engine {
       ]),
     ];
     final runners = [
-      for (final c in containments) runnerFactory(c.root, suiteConcurrency),
+      for (final c in containments)
+        runnerFactory(c.projectRoot, suiteConcurrency),
     ];
     prepareWatch.stop();
     logger?.info(
@@ -460,9 +465,10 @@ final class Engine {
     // Nothing else runs during collection and its duration calibrates
     // nothing, so it uses every core instead of one job's share.
     final collected = await CoverageCollector(
-      root: baseline.root,
-      outputDir: p.join(baseline.root, coverageDirName),
-    ).collect(runnerFactory(baseline.root, Platform.numberOfProcessors));
+      root: baseline.projectRoot,
+      packageConfigRoot: baseline.root,
+      outputDir: p.join(baseline.projectRoot, coverageDirName),
+    ).collect(runnerFactory(baseline.projectRoot, Platform.numberOfProcessors));
     logger?.info(
       'collected coverage for {FileCount} files in {DurationMs} ms',
       {

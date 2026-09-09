@@ -47,6 +47,11 @@ ones the tests kill.
   abort the run.
 - Project dependencies are resolved first: rad runs `dart pub get`, refreshing
   stale configuration or writing `pubspec.lock` and `.dart_tool/` when absent.
+- Selecting a pub workspace member copies the whole pub workspace into each
+  containment. Tests, mutation generation, coverage paths, report output, and
+  the member's `.radignore` stay rooted at the selected member.
+- A workspace root `.radignore` prunes workspace-relative paths from the larger
+  copy. Excluding a file the member needs fails the green background reading.
 - `.radignore` (gitignore-style rules incl. negation and directory patterns,
   project root) excludes paths from the isolated project copy tests run in.
   An excluded directory is never descended into, so `!` cannot re-include a

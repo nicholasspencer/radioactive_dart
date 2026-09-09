@@ -160,6 +160,127 @@ void main() {
     );
   });
 
+  test('copies a workspace while targeting only its member', () async {
+    final workspace = await Directory.systemTemp.createTemp(
+      'rad_containment_workspace_',
+    );
+    addTearDown(() => workspace.delete(recursive: true));
+    final member = Directory(p.join(workspace.path, 'packages', 'member'));
+    void write(String relative, String contents) {
+      final file = File(p.join(workspace.path, relative));
+      file.parent.createSync(recursive: true);
+      file.writeAsStringSync(contents);
+    }
+
+    write('pubspec.yaml', 'name: workspace\n');
+    write('.radignore', 'bulk/\n');
+    write('bulk/blob.bin', 'workspace bulk');
+    write('build/root.txt', 'root output');
+    write('packages/member/pubspec.yaml', 'name: member\n');
+    write('packages/member/.radignore', 'assets/\n');
+    write('packages/member/lib/a.dart', 'int add(int a, int b) => a + b;\n');
+    write('packages/member/assets/blob.bin', 'member bulk');
+    write('packages/member/build/member.txt', 'member output');
+    write('packages/member/.dart_tool/config.json', '{}');
+    write('packages/sibling/lib/b.dart', 'const b = 1;\n');
+    write('packages/sibling/build/kept.txt', 'sibling source');
+    write('packages/sibling/.git/config', 'metadata');
+
+    final copy = await Containment.create(
+      member.path,
+      workspaceRoot: workspace.path,
+      workspaceIgnore: RadIgnore.load(workspace.path),
+      paths: await isolatedRadPaths('rad_containment_workspace_state_'),
+      ignore: RadIgnore.load(member.path),
+    );
+
+    expect(copy.projectRoot, p.join(copy.root, 'packages', 'member'));
+    expect(File(p.join(copy.root, 'bulk', 'blob.bin')).existsSync(), isFalse);
+    expect(File(p.join(copy.root, 'build', 'root.txt')).existsSync(), isFalse);
+    expect(
+      File(p.join(copy.projectRoot, 'assets', 'blob.bin')).existsSync(),
+      isFalse,
+    );
+    expect(
+      File(p.join(copy.projectRoot, 'build', 'member.txt')).existsSync(),
+      isFalse,
+    );
+    expect(
+      File(p.join(copy.projectRoot, '.dart_tool', 'config.json')).existsSync(),
+      isFalse,
+    );
+    expect(
+      File(p.join(copy.root, 'packages', 'sibling', 'lib', 'b.dart'))
+          .existsSync(),
+      isTrue,
+    );
+    expect(
+      File(p.join(copy.root, 'packages', 'sibling', 'build', 'kept.txt'))
+          .existsSync(),
+      isTrue,
+    );
+    expect(
+      File(p.join(copy.root, 'packages', 'sibling', '.git', 'config'))
+          .existsSync(),
+      isFalse,
+    );
+
+    const mutation = Mutation(
+      filePath: 'lib/a.dart',
+      offset: 27,
+      length: 1,
+      original: '+',
+      replacement: '-',
+      operatorId: 'arithmetic',
+      description: 'replace + with -',
+    );
+    await copy.apply(mutation);
+    expect(
+      File(p.join(copy.projectRoot, 'lib', 'a.dart')).readAsStringSync(),
+      contains('a - b'),
+    );
+    await copy.restore(mutation.filePath);
+
+    final clone = await copy.clone();
+    expect(clone.projectRoot, p.join(clone.root, 'packages', 'member'));
+    expect(
+      File(p.join(clone.root, 'packages', 'sibling', 'lib', 'b.dart'))
+          .existsSync(),
+      isTrue,
+    );
+    await clone.apply(mutation);
+    expect(
+      File(p.join(clone.projectRoot, 'lib', 'a.dart')).readAsStringSync(),
+      contains('a - b'),
+    );
+    await clone.restore(mutation.filePath);
+
+    expect(
+      File(p.join(member.path, 'lib', 'a.dart')).readAsStringSync(),
+      'int add(int a, int b) => a + b;\n',
+    );
+    expect(
+      File(p.join(workspace.path, 'packages', 'sibling', 'lib', 'b.dart'))
+          .readAsStringSync(),
+      'const b = 1;\n',
+    );
+  });
+
+  test('rejects a selected package outside the workspace root', () async {
+    final workspace = await fixtureProject();
+    final member = await fixtureProject();
+
+    await expectLater(
+      Containment.create(
+        member.path,
+        workspaceRoot: workspace.path,
+        paths: await isolatedRadPaths('rad_containment_outside_'),
+        ignore: RadIgnore.load(member.path),
+      ),
+      throwsArgumentError,
+    );
+  });
+
   test(
     'applies and restores a mutation without touching the source tree',
     () async {

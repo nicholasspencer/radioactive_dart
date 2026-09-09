@@ -12,11 +12,19 @@ import 'test_runner.dart';
 /// Collects per-line coverage from one instrumented suite run (ADR 0020).
 final class CoverageCollector {
   /// Collects inside the containment at [root]; the suite writes its per-suite
-  /// reports into [outputDir].
-  CoverageCollector({required this.root, required this.outputDir});
+  /// reports into [outputDir]. [packageConfigRoot] may name a containing pub
+  /// workspace; it defaults to [root] for a single package.
+  CoverageCollector({
+    required this.root,
+    required this.outputDir,
+    String? packageConfigRoot,
+  }) : packageConfigRoot = packageConfigRoot ?? root;
 
-  /// Containment root every collected path is relativized against.
+  /// Selected package root every collected path is relativized against.
   final String root;
+
+  /// Root whose `.dart_tool/package_config.json` resolves package URIs.
+  final String packageConfigRoot;
 
   /// Directory `dart test --coverage` writes its per-suite reports into.
   final String outputDir;
@@ -145,7 +153,9 @@ final class CoverageCollector {
 
   /// Each package's library directory, per the containment's package config.
   Map<String, Uri> _packageLibraries() {
-    final file = File(p.join(root, '.dart_tool', 'package_config.json'));
+    final file = File(
+      p.join(packageConfigRoot, '.dart_tool', 'package_config.json'),
+    );
     if (!file.existsSync()) return const {};
     final base = Uri.file(file.path);
     final config = jsonDecode(file.readAsStringSync()) as Map<String, dynamic>;

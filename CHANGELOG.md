@@ -2,6 +2,10 @@
 
 ## 0.2.0
 
+- Irradiate pub workspace members by containing the whole workspace while
+  keeping mutation, tests, coverage, reports, and member exclusions rooted at
+  the selected package.
+
 ## 0.1.0
 
 - `rad` CLI: irradiates `lib/`, prints per-outcome counts, MSI, and
