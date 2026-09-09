@@ -77,7 +77,7 @@ createFixtureWorkspace() async {
 name: rad_fixture_workspace
 publish_to: none
 environment:
-  sdk: ^3.13.0
+  sdk: ^3.12.0
 workspace:
   - packages/member
   - packages/sibling
@@ -87,7 +87,7 @@ name: fixture
 version: 1.0.0
 resolution: workspace
 environment:
-  sdk: ^3.13.0
+  sdk: ^3.12.0
 dependencies:
   rad_fixture_sibling: ^1.0.0
 dev_dependencies:
@@ -111,7 +111,7 @@ name: rad_fixture_sibling
 version: 1.0.0
 resolution: workspace
 environment:
-  sdk: ^3.13.0
+  sdk: ^3.12.0
 ''');
   write('packages/sibling/lib/value.dart', 'const siblingValue = 2;\n');
 
