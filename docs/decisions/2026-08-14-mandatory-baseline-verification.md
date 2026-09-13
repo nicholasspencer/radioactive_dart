@@ -1,3 +1,20 @@
+---
+status: accepted
+date: 2026-08-14
+decision-makers: []
+register:
+  spec: 1
+  slug: mandatory-baseline-verification
+  surfaces:
+    - "lib/src/engine/engine.dart"
+    - "lib/src/engine/run_aborted.dart"
+  obsoletes: []
+  updates: []
+  obsoleted-by: null
+  updated-by: []
+  bead: null
+  legacy-id: "0005"
+---
 # 0005: Mandatory background reading
 
 - Status: accepted

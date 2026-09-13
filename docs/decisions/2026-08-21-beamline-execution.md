@@ -1,3 +1,19 @@
+---
+status: accepted
+date: 2026-08-21
+decision-makers: []
+register:
+  spec: 1
+  slug: beamline-execution
+  surfaces:
+    - "docs/roadmap/v1.0.md"
+  obsoletes: []
+  updates: []
+  obsoleted-by: null
+  updated-by: []
+  bead: null
+  legacy-id: "0021"
+---
 # 0021: Beamline execution
 
 - Status: accepted, planned v1.0

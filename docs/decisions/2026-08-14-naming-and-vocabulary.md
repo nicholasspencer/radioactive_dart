@@ -1,3 +1,19 @@
+---
+status: accepted
+date: 2026-08-14
+decision-makers: []
+register:
+  spec: 1
+  slug: naming-and-vocabulary
+  surfaces:
+    - "pubspec.yaml"
+  obsoletes: []
+  updates: []
+  obsoleted-by: null
+  updated-by: []
+  bead: null
+  legacy-id: "0014"
+---
 # 0014: Naming and vocabulary
 
 - Status: accepted

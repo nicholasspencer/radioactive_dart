@@ -1,3 +1,19 @@
+---
+status: accepted
+date: 2026-08-14
+decision-makers: []
+register:
+  spec: 1
+  slug: mutant-schemata
+  surfaces:
+    - "docs/roadmap/v1.0.md"
+  obsoletes: []
+  updates: []
+  obsoleted-by: null
+  updated-by: []
+  bead: null
+  legacy-id: "0010"
+---
 # 0010: Mutant schemata
 
 - Status: accepted, planned v1.0

@@ -1,3 +1,19 @@
+---
+status: accepted
+date: 2026-08-15
+decision-makers: []
+register:
+  spec: 1
+  slug: wide-event-logging
+  surfaces:
+    - "lib/src/log/rad_logger.dart"
+  obsoletes: []
+  updates: []
+  obsoleted-by: null
+  updated-by: []
+  bead: null
+  legacy-id: "0016"
+---
 # 0016: Wide-event logging
 
 - Status: accepted

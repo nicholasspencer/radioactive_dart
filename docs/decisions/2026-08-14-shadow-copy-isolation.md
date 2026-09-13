@@ -1,3 +1,20 @@
+---
+status: accepted
+date: 2026-08-14
+decision-makers: []
+register:
+  spec: 1
+  slug: shadow-copy-isolation
+  surfaces:
+    - "lib/src/engine/containment.dart"
+    - ".radignore"
+  obsoletes: []
+  updates: []
+  obsoleted-by: null
+  updated-by: []
+  bead: null
+  legacy-id: "0004"
+---
 # 0004: Containment isolation
 
 - Status: accepted

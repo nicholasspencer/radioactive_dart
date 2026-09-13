@@ -1,3 +1,19 @@
+---
+status: accepted
+date: 2026-08-14
+decision-makers: []
+register:
+  spec: 1
+  slug: score-and-honesty-metrics
+  surfaces:
+    - "lib/src/report/metrics.dart"
+  obsoletes: []
+  updates: []
+  obsoleted-by: null
+  updated-by: []
+  bead: null
+  legacy-id: "0013"
+---
 # 0013: Score and honesty metrics
 
 - Status: accepted

@@ -1,3 +1,19 @@
+---
+status: accepted
+date: 2026-08-14
+decision-makers: []
+register:
+  spec: 1
+  slug: distribution-and-sdk-resolution
+  surfaces:
+    - "lib/src/engine/dart_test_runner.dart"
+  obsoletes: []
+  updates: []
+  obsoleted-by: null
+  updated-by: []
+  bead: null
+  legacy-id: "0003"
+---
 # 0003: Distribution and SDK resolution
 
 - Status: accepted

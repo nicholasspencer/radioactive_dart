@@ -1,3 +1,20 @@
+---
+status: accepted
+date: 2026-08-14
+decision-makers: []
+register:
+  spec: 1
+  slug: composable-mutator-framework
+  surfaces:
+    - "lib/src/mutagens/mutagen.dart"
+    - "lib/src/engine/mutation_visitor.dart"
+  obsoletes: []
+  updates: []
+  obsoleted-by: null
+  updated-by: []
+  bead: null
+  legacy-id: "0008"
+---
 # 0008: Composable mutagen framework
 
 - Status: accepted

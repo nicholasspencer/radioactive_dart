@@ -1,3 +1,20 @@
+---
+status: accepted
+date: 2026-08-14
+decision-makers: []
+register:
+  spec: 1
+  slug: outcome-taxonomy
+  surfaces:
+    - "lib/src/model/outcome.dart"
+    - "lib/src/engine/outcome_classifier.dart"
+  obsoletes: []
+  updates: []
+  obsoleted-by: null
+  updated-by: []
+  bead: null
+  legacy-id: "0006"
+---
 # 0006: Outcome taxonomy
 
 - Status: accepted

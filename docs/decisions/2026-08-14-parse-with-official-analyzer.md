@@ -1,3 +1,19 @@
+---
+status: accepted
+date: 2026-08-14
+decision-makers: []
+register:
+  spec: 1
+  slug: parse-with-official-analyzer
+  surfaces:
+    - "lib/src/engine/project_analysis.dart"
+  obsoletes: []
+  updates: []
+  obsoleted-by: null
+  updated-by: []
+  bead: null
+  legacy-id: "0002"
+---
 # 0002: Parse with the official analyzer
 
 - Status: accepted

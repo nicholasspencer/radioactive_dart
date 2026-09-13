@@ -1,3 +1,19 @@
+---
+status: accepted
+date: 2026-08-14
+decision-makers: []
+register:
+  spec: 1
+  slug: full-pana-score
+  surfaces:
+    - "analysis_options.yaml"
+  obsoletes: []
+  updates: []
+  obsoleted-by: null
+  updated-by: []
+  bead: null
+  legacy-id: "0015"
+---
 # 0015: Full pana score
 
 - Status: accepted

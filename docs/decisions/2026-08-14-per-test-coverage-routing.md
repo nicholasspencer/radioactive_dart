@@ -1,3 +1,20 @@
+---
+status: accepted
+date: 2026-08-14
+decision-makers: []
+register:
+  spec: 1
+  slug: per-test-coverage-routing
+  surfaces:
+    - "lib/src/engine/coverage_provider.dart"
+    - "lib/src/engine/lcov_coverage_provider.dart"
+  obsoletes: []
+  updates: []
+  obsoleted-by: null
+  updated-by: []
+  bead: null
+  legacy-id: "0011"
+---
 # 0011: Tracer coverage routing
 
 - Status: accepted, staged v0.1-v1.0

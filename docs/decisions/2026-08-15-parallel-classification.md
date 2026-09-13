@@ -1,3 +1,19 @@
+---
+status: accepted
+date: 2026-08-15
+decision-makers: []
+register:
+  spec: 1
+  slug: parallel-classification
+  surfaces:
+    - "lib/src/engine/engine.dart"
+  obsoletes: []
+  updates: []
+  obsoleted-by: null
+  updated-by: []
+  bead: null
+  legacy-id: "0017"
+---
 # 0017: Parallel classification
 
 - Status: accepted

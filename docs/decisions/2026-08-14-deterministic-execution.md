@@ -1,3 +1,19 @@
+---
+status: accepted
+date: 2026-08-14
+decision-makers: []
+register:
+  spec: 1
+  slug: deterministic-execution
+  surfaces:
+    - "lib/src/engine/mutant_generator.dart"
+  obsoletes: []
+  updates: []
+  obsoleted-by: null
+  updated-by: []
+  bead: null
+  legacy-id: "0007"
+---
 # 0007: Deterministic execution
 
 - Status: accepted

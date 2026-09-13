@@ -1,3 +1,19 @@
+---
+status: accepted
+date: 2026-08-14
+decision-makers: []
+register:
+  spec: 1
+  slug: stryker-json-primary-report
+  surfaces:
+    - "lib/src/report/stryker_json_sink.dart"
+  obsoletes: []
+  updates: []
+  obsoleted-by: null
+  updated-by: []
+  bead: null
+  legacy-id: "0009"
+---
 # 0009: Stryker JSON as primary report
 
 - Status: accepted

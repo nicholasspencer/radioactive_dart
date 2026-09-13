@@ -1,3 +1,19 @@
+---
+status: accepted
+date: 2026-08-16
+decision-makers: []
+register:
+  spec: 1
+  slug: static-viability-filtering
+  surfaces:
+    - "lib/src/engine/viability_checker.dart"
+  obsoletes: []
+  updates: []
+  obsoleted-by: null
+  updated-by: []
+  bead: null
+  legacy-id: "0019"
+---
 # 0019: Static viability filtering
 
 - Status: accepted

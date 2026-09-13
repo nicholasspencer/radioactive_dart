@@ -1,3 +1,19 @@
+---
+status: accepted
+date: 2026-08-21
+decision-makers: []
+register:
+  spec: 1
+  slug: process-interlock
+  surfaces:
+    - "lib/src/engine/process_interlock.dart"
+  obsoletes: []
+  updates: []
+  obsoleted-by: null
+  updated-by: []
+  bead: null
+  legacy-id: "0022"
+---
 # 0022: Process interlock
 
 - Status: accepted

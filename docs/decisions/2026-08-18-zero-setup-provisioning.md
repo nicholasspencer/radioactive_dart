@@ -1,3 +1,20 @@
+---
+status: accepted
+date: 2026-08-18
+decision-makers: []
+register:
+  spec: 1
+  slug: zero-setup-provisioning
+  surfaces:
+    - "lib/src/engine/coverage_collector.dart"
+    - "lib/src/cli/cli.dart"
+  obsoletes: []
+  updates: []
+  obsoleted-by: null
+  updated-by: []
+  bead: null
+  legacy-id: "0020"
+---
 # 0020: Zero-setup provisioning
 
 - Status: accepted

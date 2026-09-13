@@ -1,3 +1,20 @@
+---
+status: accepted
+date: 2026-08-15
+decision-makers: []
+register:
+  spec: 1
+  slug: run-workspace-lifecycle
+  surfaces:
+    - "lib/src/run_workspace.dart"
+    - "lib/src/rad_paths.dart"
+  obsoletes: []
+  updates: []
+  obsoleted-by: null
+  updated-by: []
+  bead: null
+  legacy-id: "0018"
+---
 # 0018: Run workspace lifecycle
 
 - Status: accepted, staged v0.1–v0.2
